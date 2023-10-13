@@ -14,7 +14,7 @@ Windows PC を使っている際に、指紋認証デバイスでのログイン
 ## インスタンス ID の取得方法
 コマンドプロンプトにて、
 ```
-pnputil /enum-devices /class Biometrics
+%WINDIR%\System32\pnputil.exe /enum-devices /class Biometrics
 ```
 とすることで、インスタンス ID が得られる。手元で簡単に確認している範囲では変化することはなかった。
 仮に変化する要素があった場合、もうちょっと頑張ってスクリプトを書く必要があるかも。
@@ -23,7 +23,7 @@ pnputil /enum-devices /class Biometrics
 
 実行例
 ```
-C:\Users\kokubo>pnputil /enum-devices /class Biometric
+C:\Users\kokubo>%WINDIR%\System32\pnputil.exe /enum-devices /class Biometric
 Microsoft PnP ユーティリティ
 
 インスタンス ID:                USB\VID_27C6&PID_521D\6&13c452c7&0&3
@@ -40,33 +40,33 @@ Microsoft PnP ユーティリティ
 
 以下を .bat の拡張子で保存する。
 ```
-pnputil /remove-device "USB\VID_27C6&PID_521D\6&13c452c7&0&3"
-sleep 1
-pnputil /scan-devices
-sleep 1
+%WINDIR%\System32\pnputil.exe /remove-device "USB\VID_27C6&PID_521D\6&13c452c7&0&3"
+@%WINDIR%\System32\timeout.exe 1
+%WINDIR%\System32\pnputil.exe /scan-devices
+@%WINDIR%\System32\timeout.exe 1
 ```
 
 実行例として、管理者権限でのコマンドプロンプトから起動したログを以下に示す。
 ```
 C:\e\bin\utils>reset-fingerprint-device.bat
 
-C:\e\bin\utils>pnputil /remove-device "USB\VID_27C6&PID_521D\6&13c452c7&0&3"
+C:\e\bin\utils>C:\WINDOWS\System32\pnputil.exe /remove-device "USB\VID_27C6&PID_521D\6&13c452c7&0&3"
 Microsoft PnP ユーティリティ
 
 デバイスを削除しています:          USB\VID_27C6&PID_521D\6&13c452c7&0&3
 デバイスが正常に削除されました。
 
 
-C:\e\bin\utils>sleep 1
+0 秒待っています。続行するには何かキーを押してください ...
 
-C:\e\bin\utils>pnputil /scan-devices
+C:\e\bin\utils>C:\WINDOWS\System32\pnputil.exe /scan-devices
 Microsoft PnP ユーティリティ
 
 デバイス ハードウェアの変更をスキャンしています。
 スキャンが完了しました。
 
 
-C:\e\bin\utils>sleep 1
+0 秒待っています。続行するには何かキーを押してください ...
 
 C:\e\bin\utils>
 ```
