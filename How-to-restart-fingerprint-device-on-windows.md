@@ -14,7 +14,7 @@ Windows PC を使っている際に、指紋認証デバイスでのログイン
 ## インスタンス ID の取得方法
 コマンドプロンプトにて、
 ```
-%WINDIR%\System32\pnputil.exe /enum-devices /class Biometrics
+%WINDIR%\System32\pnputil.exe /enum-devices /class Biometric
 ```
 とすることで、インスタンス ID が得られる。手元で簡単に確認している範囲では変化することはなかった。
 仮に変化する要素があった場合、もうちょっと頑張ってスクリプトを書く必要があるかも。
